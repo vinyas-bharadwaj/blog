@@ -6,10 +6,11 @@
   <ul>
     {% for post in posts %}
       <hr>
-      <h6 style="color: gray;">--Created by {{ post.author }}--</h6>
+      <h6 style="color: gray;">-- Created by {{ post.author }} at {{ post.created_at }} --</h6>
       <li><h2><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h2></li>
       <h3>{{ post.body }}</h3>
       <small><a href="{% url 'update-post' post.id %}">Edit</a></small>
+      <small><a style="color: red" href="{% url 'delete-post' post.id %}">Delete</a></small>
 
     {% endfor %}
   </ul>

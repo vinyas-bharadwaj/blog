@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from .models import Post
 from .forms import CreatePost, EditPost
 # from .mlmodel import classifier
 
 # Create your views here.
 def home(request):
-  posts = Post.objects.all()
+  posts = Post.objects.all().order_by('-created_at')
   context = {'posts': posts}
   return render(request, 'app/home.html', context=context)
 
@@ -28,3 +29,8 @@ class UpdatePost(UpdateView):
   form_class = EditPost
   template_name = 'app/update-post.html'
   # fields = ['title', 'body']
+
+class DeletePost(DeleteView):
+  model = Post
+  template_name = 'app/delete-post.html'
+  success_url = reverse_lazy('home')
