@@ -4,22 +4,24 @@
 
 {% block content %}
 
-  <h1>Delete Post</h1>
-  <hr>
-  <h3>Delete: {{ post.title }}</h3>
-  <br>
+  {% if user.is_authenticated %}
+    <h1>Delete Post</h1>
+    <hr>
+    <h3>Delete: {{ post.title }}</h3>
+    <br>
 
-  <div class="mb-3">
-    <form method='POST'>
+    <div class="mb-3">
+      <form method='POST'>
 
-      {% csrf_token %}
+        {% csrf_token %}
 
-      <strong>Are you sure you want to delete the post?</strong>
-      <hr>
-      <button class="btn btn-danger">Delete</button>
-      <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+        <strong>Are you sure you want to delete the post?</strong>
+        <hr>
+        <button class="btn btn-danger">Delete</button>
+        <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
 
-    </form>
-  <div>
+      </form>
+    <div>
+  {% endif %}
 
 {% endblock %}

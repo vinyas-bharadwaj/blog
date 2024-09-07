@@ -3,20 +3,25 @@
 {% block title %} Update Post {% endblock %}
 
 {% block content %}
+  {% if user.is_authenticated %}
+    <h1>Update Post</h1>
+    <hr>
+    <br>
 
-  <h1>Update Post</h1>
-  <hr>
-  <br>
+    <div class="mb-3">
+      <form method='POST'>
 
-  <div class="mb-3">
-    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Update</button>
+        <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
 
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn btn-primary">Update</button>
-      <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
-
-    </form>
-  <div>
+      </form>
+    <div>
+  
+  {% else %}
+    <h1>You are not allowed access to this area!</h1>
+  
+  {% endif %}
 
 {% endblock %}
