@@ -6,10 +6,12 @@
   <h2>{{ blog.title }} </h2>
   <small style="color:gray">Created by {{ blog.author }} at {{ blog.created_at }}</small>
   <hr>
-  <p>{{ blog.body }}</p>
+  <p>{{ blog.body|safe }}</p>
   <hr>
   <br>
-  <a class="btn btn-primary" href="{% url 'update-post' blog.id %}">Update</a>
-  <a class="btn btn-danger" href="{% url 'delete-post' blog.id %}">Delete</a>
+  {% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'update-post' blog.id %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'delete-post' blog.id %}">Delete</a>
+  {% endif %}
   <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
 {% endblock %}

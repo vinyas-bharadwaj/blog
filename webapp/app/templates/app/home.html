@@ -6,9 +6,14 @@
   <ul>
     {% for post in posts %}
       <hr>
-      <h6 style="color: gray;">-- Created by {{ post.author }} at {{ post.created_at }} --</h6>
+      <h6 style="color: gray;">Created by {{ post.author }} at {{ post.created_at }}</h6>
+      <small>
+        <a  style="color: gray; text-decoration: none" href="{% url 'category-posts' post.category|slugify %}">{{ post.category }}</a>
+      </small>
       <li><h2><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h2></li>
-      <h3>{{ post.body|slice:":100" }}</h3>
+      <h3>{{ post.body|slice:":100"|safe }}</h3>
+      
+      <br>
 
       {% if user.is_authenticated %}
         <small><a href="{% url 'update-post' post.id %}">Edit</a></small>
@@ -17,4 +22,7 @@
 
     {% endfor %}
   </ul>
+
 {% endblock %}
+
+

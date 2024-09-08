@@ -1,0 +1,37 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <center><h1>{{ category }} Category</h1></center>
+  <br>
+  {% if posts %}
+    <ul>
+      {% for post in posts %}
+        <hr>
+        <h6 style="color: gray;">Created by {{ post.author }} at {{ post.created_at }}</h6>
+        <li><h2><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h2></li>
+        <h3>{{ post.body|slice:":100"|safe }}</h3>
+        <small style="color: gray;">Categories: {{ post.category }}</small>
+        <br>
+
+        {% if user.is_authenticated %}
+          <small><a href="{% url 'update-post' post.id %}">Edit</a></small>
+          <small><a style="color: red" href="{% url 'delete-post' post.id %}">Delete</a></small>
+        {% endif %}
+
+      {% endfor %}
+
+      <br>
+      <br>
+
+      <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+    </ul>
+
+  {% else %}
+    <h1><center>There seems to be no posts available in the {{ category }} category</center></h1>
+
+  {% endif %}
+
+  
+
+
+{% endblock %}
