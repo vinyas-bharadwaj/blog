@@ -12,12 +12,21 @@
       <form method='POST'>
 
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_p|safe }}
         <button class="btn btn-primary">Submit</button>
         <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
-
       </form>
-    <div>
+    </div>
+
+    <script>
+      let name = "{{ user.id }}";
+      document.getElementById('owner').value = name;
+    </script>
+  
+  {% else %}
+    <h1>You are not allowed access to this area!</h1>
+   
+
   {% endif %}
 
 {% endblock %}

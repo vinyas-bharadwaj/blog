@@ -4,14 +4,18 @@
 
 {% block content %}
   <h2>{{ blog.title }} </h2>
-  <small style="color:gray">Created by {{ blog.author }} at {{ blog.created_at }}</small>
+  <small style="color:gray">Created by {{ blog.author }} at {{ blog.created_at }}
+    
+    {% if user.is_authenticated and user.id == blog.author.id %}
+      &nbsp;
+      <a href="{% url 'update-post' blog.id %}">Edit</a>
+      &nbsp;
+      <a style="color: red" href="{% url 'delete-post' blog.id %}">Delete</a>
+    {% endif %}
+  </small>
   <hr>
   <p>{{ blog.body|safe }}</p>
   <hr>
-  <br>
-  {% if user.is_authenticated %}
-    <a class="btn btn-primary" href="{% url 'update-post' blog.id %}">Update</a>
-    <a class="btn btn-danger" href="{% url 'delete-post' blog.id %}">Delete</a>
-  {% endif %}
-  <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+  
+  <a class="btn btn-secondary mb-5" href="{% url 'home' %}">Back</a>
 {% endblock %}
