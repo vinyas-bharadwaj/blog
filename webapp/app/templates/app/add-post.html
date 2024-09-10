@@ -13,8 +13,8 @@
 
         {% csrf_token %}
         {{ form.as_p|safe }}
-        <button class="btn btn-primary">Submit</button>
-        <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+        <button class="btn btn-outline-primary">Submit</button>
+        <a class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>
       </form>
     </div>
 

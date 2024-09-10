@@ -16,6 +16,30 @@
   <hr>
   <p>{{ blog.body|safe }}</p>
   <hr>
+
+  <a class="btn btn-outline-secondary mb-5" href="{% url 'home' %}">Back</a>
+
+  <form action="{% url 'like-post' blog.id %}" method='POST'>
+    {% csrf_token %}
+
+  {% if user.is_authenticated %}
+
+      {% if liked %}
+        <button type='submit' name='post_id' value='{{ blog.id }}' class='btn btn-outline-danger btn'>
+          Unlike 
+        </button>
+      {% else %}
+        <button type='submit' name='post_id' value='{{ blog.id }}' class='btn btn-outline-primary btn'>
+          Like 
+        </button>
+      {% endif %}
+
+  {% else %}
+    <small><a href="{% url 'login' %}">Login</a> to like</small>
+
+  {% endif %}
+    
+    - {{ blog.likes.count }} Likes
+  </form>
   
-  <a class="btn btn-secondary mb-5" href="{% url 'home' %}">Back</a>
 {% endblock %}
