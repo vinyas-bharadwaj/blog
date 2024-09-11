@@ -1,24 +1,24 @@
 {% extends 'app/base.html' %}
 
-{% block title %} Login {% endblock %}
+{% block title %} Edit Profile {% endblock %}
 
 {% block content %}
 
-  <center><h1>Login</h1></center>
+  <center><h1>Edit Profile</h1></center>
   <hr>
   <br>
 
-  <div class="mb-3">
+
+  <div class="mb-3 card" style="width: 600px; padding: 20px; margin-left: 350px">
     <form method='POST'>
 
-  
       {% csrf_token %}
       {{ form.as_p }}
-
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary ">Update Profile</button>
       <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
-
+      
     </form>
   <div>
+
 
 {% endblock %}

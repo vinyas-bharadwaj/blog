@@ -18,7 +18,7 @@
       
       
         <li><h2><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h2></li>
-        <h3>{{ post.body|slice:":100"|safe }}</h3>
+        <h6>{{ post.snippet }}</h6>
 
         {% if user.is_authenticated and user.id == post.author.id %}
           <small><a href="{% url 'update-post' post.id %}">Edit</a></small>

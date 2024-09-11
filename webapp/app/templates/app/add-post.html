@@ -12,6 +12,7 @@
       <form method='POST'>
 
         {% csrf_token %}
+        {{ form.media }}
         {{ form.as_p|safe }}
         <button class="btn btn-outline-primary">Submit</button>
         <a class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>

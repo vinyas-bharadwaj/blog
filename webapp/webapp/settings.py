@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     # My apps
     'app',
     'members',
+
+    # Third party apps
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

@@ -4,19 +4,23 @@
 
 {% block content %}
 
-  <h1>Register</h1>
+  <center><h1>Register</h1></center>
   <hr>
   <br>
 
-  <div class="mb-3">
+
+  <div class="mb-3 card" style="width: 600px; padding: 20px; margin-left: 350px">
     <form method='POST'>
 
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="btn btn-primary">Submit</button>
-      <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+      <center>
+        <button class="btn btn-primary ">Submit</button>
+        <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+      </center>
 
     </form>
   <div>
+
 
 {% endblock %}

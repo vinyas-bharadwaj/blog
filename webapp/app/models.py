@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from datetime import datetime, date
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Category(models.Model):
@@ -17,9 +17,10 @@ class Category(models.Model):
 class Post(models.Model):
   title = models.CharField(max_length=255)
   author = models.ForeignKey(User, on_delete=models.CASCADE)
-  body = models.TextField()
+  body = RichTextField(blank=True, null=True)
   created_at = models.DateField(auto_now_add=True)
   category = models.CharField(max_length=255, default="uncategorized")
+  snippet = models.CharField(max_length=255)
   likes = models.ManyToManyField(User, related_name='blog_posts')
   
   def total_likes(self):
