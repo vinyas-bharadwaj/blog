@@ -1,3 +1,4 @@
+{% load static %}
 
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark mb-2">
   <div class="container-fluid">
@@ -31,10 +32,6 @@
         {% if user.is_authenticated %}
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-          </li>
-
-          <li class="nav-item">
             <a class="nav-link" href="{% url 'add-post' %}">Create Post</a>
           </li>
 
@@ -55,6 +52,29 @@
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
 
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav ml-auto ">
+        {% if user.is_authenticated %}
+          <li class="nav-item mt-2">
+            <a class="nav-link" href="{% url 'profile' %}">Edit Profile</a>
+          </li>
+        
+          {% if user.profile.profile_pic %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}">
+                <img class="rounded-circle" src="{{ user.profile.profile_pic.url }}" width=40px height=40px>
+              </a>
+            </li>
+
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}">
+                <img class="rounded-circle" src="{% static 'webapp/images/blank-profile-pic.webp' %}" width=40px height=40px>
+              </a>
+            </li>
+            
+          {% endif %}
         {% endif %}
       </ul>
     </div>
