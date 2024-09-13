@@ -1,13 +1,35 @@
 {% extends 'app/base.html' %}
 
+{% load static %}
+
 {% block content %}
-  <center><h1>Blog Posts</h1></center>
+  <center><h1>User Profile</h1></center>
+  <hr>
+  <br>
+
+  <div class="card mb-3" style="overflow: hidden;">
+    {% if page_user.profile_pic %}
+      <img src="{{ page_user.profile_pic.url }}" class="card-img-top" height=500 style="object-fit: cover">
+    {% else %}
+      <img src="{% static 'webapp/images/blank-profile-pic.webp' %}" class="card-img-top" height=500 style="object-fit: cover">
+    {% endif %}
+    
+    <div class="card-body">
+      <h5 class="card-title">About {{ page_user }}</h5>
+      <p class="card-text">{{ page_user.bio }}</p>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <center><h1>Posts from {{ page_user }}</h1></center>
+
   <ul>
     <hr>
-    {% for post in posts %}
+    {% for post in user_posts %}
       <div class="card" style='position: relative; padding: 10px; margin: 15px'>
         <h6 style="color: gray;">created by 
-          <a href="{% url 'user-profile' post.author.profile.id %}" style="text-decoration: none; color: gray">{{ post.author }}</a>
+          <a href="{% url 'user-profile' post.author.id %}" style="text-decoration: none; color: gray">{{ post.author }}</a>
            - {{ post.created_at }}
           &nbsp;
           [<small>
@@ -36,5 +58,3 @@
   </ul>
 
 {% endblock %}
-
-

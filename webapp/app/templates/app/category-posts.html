@@ -6,17 +6,22 @@
   {% if posts %}
     <ul>
       {% for post in posts %}
-        <hr>
-        <h6 style="color: gray;">Created by {{ post.author }} at {{ post.created_at }}</h6>
-        <li><h2><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h2></li>
-        <h3>{{ post.body|slice:":100"|safe }}</h3>
-        <small style="color: gray;">Categories: {{ post.category }}</small>
-        <br>
+        <div class="card" style="padding: 10px; margin: 10px; position: relative;">
+          <h6 style="color: gray;">Created by {{ post.author }} at {{ post.created_at }}</h6>
+          <h5><a style="text-decoration: none" href="{% url 'posts' post.id %}">{{ post.title }}</a></h5>
+          <h6>{{ post.snippet }}</h6>
+          <small style="color: gray;">Categories: {{ post.category }}</small>
+          <small style='color: gray; position: absolute; top: 5px; right: 10px' >{{ post.likes.count }} Likes</small>
+          <br>
 
-        {% if user.is_authenticated and user.id == post.author.id %}
-          <small><a href="{% url 'update-post' post.id %}">Edit</a></small>
-          <small><a style="color: red" href="{% url 'delete-post' post.id %}">Delete</a></small>
-        {% endif %}
+          {% if user.is_authenticated and user.id == post.author.id %}
+            <div style="display: flex; align-items: center;">
+              <small><a href="{% url 'update-post' post.id %}">Edit</a></small>
+              &nbsp;
+              <small><a style="color: red" href="{% url 'delete-post' post.id %}">Delete</a></small>
+            </div>
+          {% endif %}
+        </div>
 
       {% endfor %}
 
