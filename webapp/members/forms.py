@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from app.models import Profile
 
 class SignUpForm(UserCreationForm):
   email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -18,7 +19,7 @@ class SignUpForm(UserCreationForm):
       self.fields['password1'].widget.attrs['class'] = 'form-control'
       self.fields['password2'].widget.attrs ['class'] = 'form-control'
 
-class EditProfileForm(UserChangeForm):
+class EditSettingsForm(UserChangeForm):
   email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
   first_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
   last_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -32,6 +33,15 @@ class EditProfileForm(UserChangeForm):
   class Meta:
     model = User
     fields = ['username', 'first_name', 'last_name', 'email', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'date_joined']
+
+class EditProfileForm(UserChangeForm):
+  bio = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+  profile_pic = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control'}))
+  links = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+  
+  class Meta:
+    model = Profile
+    fields = ['bio', 'profile_pic', 'links']
 
 class ChangePassword(PasswordChangeForm):
   old_password = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))

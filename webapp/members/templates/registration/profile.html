@@ -8,9 +8,7 @@
   <hr>
   <br>
 
-  {{ user.profile.bio }}
-
-  <div class="mb-3 card" style="width: 600px; padding: 20px; margin-left: 350px">
+  <div>
     <form method='POST'>
 
       {% csrf_token %}
@@ -20,6 +18,9 @@
       
     </form>
   <div>
+
+  <br>
+  <br>
 
 
 {% endblock %}

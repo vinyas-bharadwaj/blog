@@ -56,9 +56,18 @@
       </ul>
       <ul class="navbar-nav ml-auto ">
         {% if user.is_authenticated %}
-          <li class="nav-item mt-2">
-            <a class="nav-link" href="{% url 'profile' %}">Edit Profile</a>
+
+          <li class="nav-item dropdown mt-2 mx-2">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'user-profile' user.profile.id %}">View Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'edit-profile' user.profile.id %}">Edit Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' %}">Edit Settings</a></li>
+            </ul>
           </li>
+
         
           {% if user.profile.profile_pic %}
             <li class="nav-item">

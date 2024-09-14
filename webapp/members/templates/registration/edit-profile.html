@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Edit Profile</h1>
+    <hr>
+    <br>
+
+    <div class="mb-3">
+      <form method='POST' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form.as_p|safe }}
+
+        <button class="btn btn-outline-primary">Update Profile</button>
+        <a class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>
+      </form>
+    </div>
+
+    <script>
+      let name = "{{ user.id }}";
+      document.getElementById('owner').value = name;
+    </script>
+  
+  {% else %}
+    <h1>You are not allowed access to this area!</h1>
+   
+
+  {% endif %}
+
+{% endblock %}
