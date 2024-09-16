@@ -16,6 +16,9 @@
     
     <div class="card-body">
       <h5 class="card-title">About {{ page_user }}</h5>
+      {% if page_user.links %}
+        <small>{{ page_user.links }}</small>
+      {% endif %}
       <p class="card-text">{{ page_user.bio }}</p>
     </div>
   </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
@@ -14,13 +15,18 @@ class Category(models.Model):
       return reverse("home")
   
 class Profile(models.Model):
-   user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-   bio = models.TextField()
-   profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profiles/")
-   links = models.CharField(max_length=255, null=True, blank=True)
+  user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+  bio = models.TextField(null=True, blank=True)
+  profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profiles/")
+  links = models.CharField(max_length=255, null=True, blank=True)
+  USERNAME_FIELD = User.username
 
-   def __str__(self):
-      return str(self.user)
+
+  def __str__(self):
+    return str(self.user)
+  
+  def get_absolute_url(self):
+    return reverse("home")
 
 
 class Post(models.Model):

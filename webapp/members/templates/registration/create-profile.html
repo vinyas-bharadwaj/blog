@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Create Profile {% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Create Profile</h1>
+    <hr>
+    <br>
+
+    <div class="mb-3">
+      <form method='POST' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form.as_p|safe }}
+        <button class="btn btn-outline-primary">Submit</button>
+        <a class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>
+      </form>
+    </div>
+  
+  {% else %}
+    <h1>You are not allowed access to this area!</h1>
+   
+
+  {% endif %}
+
+{% endblock %}

@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth import logout
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .forms import SignUpForm, EditSettingsForm, ChangePassword, EditProfileForm
+from .forms import SignUpForm, EditSettingsForm, ChangePassword, EditProfileForm, CreateProfileForm
 from app.models import Profile, Post
 
 
@@ -13,6 +13,14 @@ class RegistrationForm(generic.CreateView):
   template_name = 'registration/register.html'
   success_url = reverse_lazy('login')
 
+class EditProfilePageView(generic.UpdateView):
+  form_class = EditProfileForm
+  template_name = 'registration/edit-profile.html'
+  success_url = reverse_lazy('home')
+
+  def get_object(self):
+    return self.request.user
+
 class UserEditForm(generic.UpdateView):
   form_class = EditSettingsForm
   template_name = 'registration/profile.html'
@@ -20,6 +28,15 @@ class UserEditForm(generic.UpdateView):
 
   def get_object(self):
     return self.request.user
+  
+class CreateProfilePage(generic.CreateView):
+  model = Profile
+  form_class = CreateProfileForm
+  template_name = "registration/create-profile.html"
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
   
 class ProfilePageView(generic.DetailView):
   model = Profile
@@ -35,14 +52,6 @@ class ProfilePageView(generic.DetailView):
     context['user_posts'] = user_posts
     return context
   
-class EditProfilePageView(generic.UpdateView):
-  form_class = EditProfileForm
-  template_name = 'registration/edit-profile.html'
-  success_url = reverse_lazy('home')
-
-  def get_object(self):
-    return self.request.user
-
   
 class PasswordChangeView(PasswordChangeView):
   form_class = ChangePassword

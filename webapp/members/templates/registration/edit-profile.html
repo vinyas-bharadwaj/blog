@@ -3,31 +3,24 @@
 {% block title %} Edit Profile {% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-    <h1>Edit Profile</h1>
-    <hr>
-    <br>
 
-    <div class="mb-3">
-      <form method='POST' enctype='multipart/form-data'>
+  <center><h1>Edit Profile</h1></center>
+  <hr>
+  <br>
 
-        {% csrf_token %}
-        {{ form.as_p|safe }}
+  <div>
+    <form method='POST'>
 
-        <button class="btn btn-outline-primary">Update Profile</button>
-        <a class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>
-      </form>
-    </div>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary ">Update Profile</button>
+      <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
+      
+    </form>
+  <div>
 
-    <script>
-      let name = "{{ user.id }}";
-      document.getElementById('owner').value = name;
-    </script>
-  
-  {% else %}
-    <h1>You are not allowed access to this area!</h1>
-   
+  <br>
+  <br>
 
-  {% endif %}
 
 {% endblock %}
