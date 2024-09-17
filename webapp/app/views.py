@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
-from .models import Post, Category
-from .forms import CreatePost, EditPost
+from .models import Post, Category, Comment
+from .forms import CreatePost, EditPost, CreateComment
 from django.http import HttpResponseRedirect
 
 # Home Page
@@ -58,6 +58,18 @@ class AddPost(CreateView):
   form_class = CreatePost
   template_name = 'app/add-post.html'
   # fields = ['title', 'body', 'author']
+
+# Page to add a comment on a post
+class AddComment(CreateView):
+  model = Comment
+  form_class = CreateComment
+  template_name = 'app/add-comment.html'
+  success_url = reverse_lazy('home')
+
+  def form_valid(self, form):
+    form.instance.post_id = self.kwargs['pk']
+    return super().form_valid(form)
+
 
 # Page to add new category
 class AddCategory(CreateView):

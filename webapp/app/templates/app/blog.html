@@ -72,4 +72,32 @@
   </form>
 
   <br>
+
+  <h2>comments</h2>
+
+  {% if not blog.comments.all %}
+    No comments yet <a href="{% url 'add-comment' blog.pk %}">add a comment</a>
+  {% else %}
+    <hr>
+    <a href="{% url 'add-comment' blog.pk %}">add a comment</a>
+    <br><br>
+    {% for comment in blog.comments.all %}
+      
+      <div>
+        {% if comment.post.author.user.profile.profile_pic.url %}
+          <img class="rounded-circle" width=30px height=30px src="{{ comment.post.author.user.profile.profile_pic.url }}">
+        {% else %}
+          <img class="rounded-circle" width=30px height=30px src="{% static 'webapp/images/blank-profile-pic.webp' %}">
+        {% endif %}
+
+        &nbsp;
+        <small style="color: gray;">{{ comment.name }} - {{ comment.date_added }}</small>
+        <br>
+        <p>---> {{ comment.body }}</p>
+        <hr>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <br>
 {% endblock %}
